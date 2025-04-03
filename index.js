@@ -1,6 +1,7 @@
 let recipes = {};
 let rng_drops = {};
 let mob_drops = {};
+let all_items = []
 
 fetch("./items.json")
     .then((response) => response.json())
@@ -8,6 +9,7 @@ fetch("./items.json")
         recipes = Object.values(data["recipes"]).map(item => ({ ...item, category: "Recipe" }));
         rng_drops = Object.values(data["rng_drops"]).map(item => ({ ...item, category: "RNG Drop" }));
         mob_drops = Object.values(data["mob_drops"]).map(item => ({ ...item, category: "Mob Drop" }));
+        allItems = [...recipes, ...rng_drops, ...mob_drops];
     });
 
 const itemSelector = document.getElementById("itemInput");
@@ -23,13 +25,24 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
+function findExactMatch(value) {
+    const normalizedValue = value.toLowerCase().replaceAll(" ", "_");
+
+    return allItems.find(item => item.name.toLowerCase() === normalizedValue);
+}
+
 itemSelector.addEventListener("input", function () {
     let value = this.value.toLowerCase().replaceAll(" ", "_");
     itemDropdown.innerHTML = "";
 
     if (!value) return;
 
-    const allItems = [...recipes, ...rng_drops, ...mob_drops];
+    const exactMatch = findExactMatch(value);
+    if (exactMatch) {
+        itemSelector.dataset.category = exactMatch.category;
+    } else {
+        itemSelector.dataset.category = "";
+    }
 
     const filteredItems = allItems.filter(item => item.name.toLowerCase().includes(value));
 

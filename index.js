@@ -5,14 +5,13 @@ let mob_drops = {};
 fetch("./items.json")
     .then((response) => response.json())
     .then((data) => {
-        recipes = data["recipes"];
-        rng_drops = data["rng_drops"]
-        mob_drops = data["mob_drops"]
+        recipes = Object.values(data["recipes"]).map(item => ({ ...item, category: "Recipe" }));
+        rng_drops = Object.values(data["rng_drops"]).map(item => ({ ...item, category: "RNG Drop" }));
+        mob_drops = Object.values(data["mob_drops"]).map(item => ({ ...item, category: "Mob Drop" }));
     });
 
-const recipeSelector = document.getElementById("itemInput");
-const recipeDropdown = document.querySelector(".itemAutoCompleteItems");
-
+const itemSelector = document.getElementById("itemInput");
+const itemDropdown = document.querySelector(".itemAutoCompleteItems");
 const autocompleteLimit = 4;
 
 function titleCase(str) {
@@ -24,38 +23,41 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
-function calculateCrafting() {
-    console.log("Crafting " + recipeSelector.value);
-}
-
-recipeSelector.addEventListener("input", function () {
-    let value = this.value.toLowerCase();
-    recipeDropdown.innerHTML = "";
+itemSelector.addEventListener("input", function () {
+    let value = this.value.toLowerCase().replaceAll(" ", "_");
+    itemDropdown.innerHTML = "";
 
     if (!value) return;
 
-    value = value.replaceAll(" ", "_");
+    const allItems = [...recipes, ...rng_drops, ...mob_drops];
 
-    const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(value.toLowerCase().replaceAll(" ", "_")));
+    const filteredItems = allItems.filter(item => item.name.toLowerCase().includes(value));
 
     let completionsAdded = 0;
-    Object.keys(filteredRecipes).forEach(item => {
-        item = filteredRecipes[item]
+    filteredItems.forEach(item => {
         if (completionsAdded >= autocompleteLimit) return;
+
         const div = document.createElement("div");
         div.classList.add("autocomplete-item");
-        div.textContent = titleCase(item["name"].replaceAll("_", " "));
+        div.innerHTML = `<strong>${titleCase(item.name.replaceAll("_", " "))}</strong> <span style="color: gray;">(${item.category})</span>`;
+
         div.addEventListener("click", () => {
-            recipeSelector.value = item["name"].replaceAll("_", " ");
-            recipeDropdown.innerHTML = "";
+            itemSelector.value = titleCase(item.name.replaceAll("_", " "));
+            itemSelector.dataset.category = item.category; // Store the category
+            itemDropdown.innerHTML = "";
         });
-        recipeDropdown.appendChild(div);
+
+        itemDropdown.appendChild(div);
         completionsAdded++;
     });
 });
 
 document.addEventListener("click", function (event) {
-    if (!recipeSelector.contains(event.target) && !recipeDropdown.contains(event.target)) {
-        recipeDropdown.innerHTML = "";
+    if (!itemSelector.contains(event.target) && !itemDropdown.contains(event.target)) {
+        itemDropdown.innerHTML = "";
     }
 });
+
+function calculateCrafting() {
+
+}

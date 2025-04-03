@@ -107,7 +107,36 @@ function calculateCrafting() {
             break;
         }
         case "Mob Drop": {
+            let actual_item = mob_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
+            if (actual_item.length === 0) {
+                return;
+            }
+            let title = document.createElement("h1")
+            title.innerHTML = titleCase(actual_item[0].name);
+            tree.appendChild(title);
+            actual_item.forEach(item => {
+                let source = document.createElement("b")
+                source.innerHTML = "Entity: " + item.source;
 
+                let separator = document.createElement("div");
+                separator.classList.add("inputSpacer");
+
+                let dropAmount = document.createElement("p");
+
+                if (item.minimumDrop === item.maximumDrop) {
+                    dropAmount.innerHTML = "Drop Amount: " + item.minimumDrop + "x";
+                } else {
+                    dropAmount.innerHTML = "Drop Amount: " + item.minimumDrop + "x - " + item.maximumDrop + "x";
+                }
+
+                let chance = document.createElement("p");
+                chance.innerHTML = "Drop chance: " + item.chance;
+
+                tree.appendChild(source);
+                tree.appendChild(dropAmount);
+                tree.appendChild(chance);
+                tree.appendChild(separator);
+            });
             break;
         }
     }

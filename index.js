@@ -86,39 +86,23 @@ function calculateCrafting() {
             if (actual_item.length === 0) {
                 return;
             }
-            if (actual_item.length === 1) {
-                let item = actual_item[0];
-                let title = document.createElement("h1")
-                title.innerHTML = titleCase(item.name);
-
+            let title = document.createElement("h1")
+            title.innerHTML = titleCase(actual_item[0].name);
+            tree.appendChild(title);
+            actual_item.forEach(item => {
                 let source = document.createElement("b")
                 source.innerHTML = "Source: " + item.source;
+
+                let separator = document.createElement("div");
+                separator.classList.add("inputSpacer");
 
                 let chance = document.createElement("p");
                 chance.innerHTML = "Drop chance: " + item.chance;
 
-                tree.appendChild(title);
                 tree.appendChild(source);
                 tree.appendChild(chance);
-            } else {
-                let title = document.createElement("h1")
-                title.innerHTML = titleCase(actual_item[0].name);
-                tree.appendChild(title);
-                actual_item.forEach(item => {
-                    let source = document.createElement("b")
-                    source.innerHTML = "Source: " + item.source;
-                    
-                    let separator = document.createElement("div");
-                    separator.classList.add("inputSpacer");
-
-                    let chance = document.createElement("p");
-                    chance.innerHTML = "Drop chance: " + item.chance;
-
-                    tree.appendChild(source);
-                    tree.appendChild(chance);
-                    tree.appendChild(separator);
-                })
-            }
+                tree.appendChild(separator);
+            });
 
             break;
         }

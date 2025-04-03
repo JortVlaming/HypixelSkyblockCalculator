@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypixel Skyblock Calculator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<header>
+    <h1 style="color: white">Hypixel Skyblock Calculator</h1>
+    <p>Calculate crafting costs!</p>
+</header>
+
+<main>
+    <section>
+        <h2>Crafting Calculator</h2>
+        <label for="itemInput">Item:</label>
+        <input type="text" id="itemInput">
+        <div class="inputSpacer"></div>
+        <label for="itemQuantityInput">Quantity:</label>
+        <input type="number" min="1" value="1" id="itemQuantityInput">
+        <div class="inputSpacer"></div>
+        <button onclick="calculateCrafting()">Calculate</button>
+        <div id="crafting-tree" class="crafting-tree"></div>
+    </section>
+</main>
+
+<footer>
+    <p>Made for Hypixel Skyblock players - Not affiliated with Hypixel</p>
+    <p id="copyrightNotice">&copy; Jort Vlaming 2025</p>
+</footer>
+
+<script src="index.js"></script>
+
+</body>
+</html>

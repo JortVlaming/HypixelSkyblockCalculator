@@ -13,8 +13,11 @@ fetch("./items.json")
     });
 
 const itemSelector = document.getElementById("itemInput");
+itemSelector.value = "";
 const itemDropdown = document.querySelector(".itemAutoCompleteItems");
 const autocompleteLimit = 4;
+
+const tree = document.getElementById("crafting-tree");
 
 function titleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
@@ -72,5 +75,56 @@ document.addEventListener("click", function (event) {
 });
 
 function calculateCrafting() {
+    tree.innerHTML = "";
+    switch (itemSelector.dataset.category) {
+        case "Recipe": {
 
+            break;
+        }
+        case "RNG Drop": {
+            let actual_item = rng_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
+            if (actual_item.length === 0) {
+                return;
+            }
+            if (actual_item.length === 1) {
+                let item = actual_item[0];
+                let title = document.createElement("h1")
+                title.innerHTML = titleCase(item.name);
+
+                let source = document.createElement("b")
+                source.innerHTML = "Source: " + item.source;
+
+                let chance = document.createElement("p");
+                chance.innerHTML = "Drop chance: " + item.chance;
+
+                tree.appendChild(title);
+                tree.appendChild(source);
+                tree.appendChild(chance);
+            } else {
+                let title = document.createElement("h1")
+                title.innerHTML = titleCase(actual_item[0].name);
+                tree.appendChild(title);
+                actual_item.forEach(item => {
+                    let source = document.createElement("b")
+                    source.innerHTML = "Source: " + item.source;
+                    
+                    let separator = document.createElement("div");
+                    separator.classList.add("inputSpacer");
+
+                    let chance = document.createElement("p");
+                    chance.innerHTML = "Drop chance: " + item.chance;
+
+                    tree.appendChild(source);
+                    tree.appendChild(chance);
+                    tree.appendChild(separator);
+                })
+            }
+
+            break;
+        }
+        case "Mob Drop": {
+
+            break;
+        }
+    }
 }

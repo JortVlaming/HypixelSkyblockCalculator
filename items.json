@@ -6,7 +6,9 @@
   ],
   "rng_drops": [
     {
-      "name": "test rng drop for testing"
+      "name": "test rng drop for testing",
+      "source": "Your moms house",
+      "chance": "1 in 100 (1%)"
     }
   ],
   "mob_drops": [

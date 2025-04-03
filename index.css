@@ -17,7 +17,7 @@ main {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 h1, h2 {
     color: #333;
@@ -68,4 +68,32 @@ footer {
 
 #copyrightNotice {
     font-size: 12px;
+}
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+}
+
+.itemAutoCompleteItems {
+    width: 80%;
+    margin-left: 10%;
+    border-top: none;
+    z-index: 99;
+    background: white;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
 }

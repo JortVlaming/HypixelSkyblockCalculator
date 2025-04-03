@@ -1,0 +1,17 @@
+{
+  "recipes": [
+    {
+      "name": "test_item_for_testing"
+    }
+  ],
+  "rng_drops": [
+    {
+      "name": "test rng drop for testing"
+    }
+  ],
+  "mob_drops": [
+    {
+      "name": "test mob drop for testing"
+    }
+  ]
+}

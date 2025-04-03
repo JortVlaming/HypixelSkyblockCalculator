@@ -15,7 +15,7 @@ fetch("./items.json")
 const itemSelector = document.getElementById("itemInput");
 itemSelector.value = "";
 const itemDropdown = document.querySelector(".itemAutoCompleteItems");
-const autocompleteLimit = 4;
+const autocompleteLimit = 10;
 
 const tree = document.getElementById("crafting-tree");
 

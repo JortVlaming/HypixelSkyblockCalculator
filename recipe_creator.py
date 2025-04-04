@@ -1,5 +1,5 @@
 #!/bin/python3
-import itertools
+
 # Copyright 2025 Jort Vlaming
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,8 @@ import json
 import os
 import time
 from typing import Tuple, Dict, List
+import itertools
+import sys
 
 
 def clear():
@@ -78,6 +80,8 @@ def safe_input(prompt: str, expected_type: type = str):
     while True:
         user_input = input(prompt)
         try:
+            if user_input == "":
+                raise ValueError()
             return expected_type(user_input)
         except ValueError:
             print(f"Invalid input! Please enter a valid {expected_type.__name__}.")
@@ -110,6 +114,7 @@ def create_recipe(recipes):
 
     recipes[name.lower().replace(" ", "_")] = {
         "name": name.lower().replace(" ", "_"),
+        "display_name": name,
         "quantity": result_amount,
         "components": components
     }
@@ -193,6 +198,51 @@ def create_mob_drop(mob_drops):
     print("Mob drop for " + name + " created! " + chance)
     input("Press enter to continue...")
 
+def find_orphans(recipes, rng_drops, mob_drops):
+    clear()
+    items_used = []
+    items_with_recipes = []
+
+    normalized = lambda name : name.lower().replace(" ", "_")
+
+    for recipe in recipes:
+        recipe = recipes[recipe]
+        print(f"Checking {recipe}")
+        if normalized(recipe["name"]) not in items_used:
+            items_used.append(recipe["name"])
+        if normalized(recipe["name"]) not in items_with_recipes:
+            items_with_recipes.append(normalized(recipe["name"] if "display_name" not in recipe else recipe["display_name"]))
+        if recipe["components"]:
+            if len(recipe["components"]) > 0:
+                for component in recipe["components"]:
+                    if component not in items_used:
+                        print(f"{component} was used in {recipe["name"]}")
+                        items_used.append(component)
+
+    for drop in rng_drops:
+        drop = rng_drops[drop]
+        print(f"Checking {drop}")
+        if normalized(drop["name"]) not in items_with_recipes:
+            items_with_recipes.append(normalized(drop["name"] if "display_name" not in d else d["display_name"]))
+
+    for drop in mob_drops:
+        drop = mob_drops[drop]
+        print(f"Checking {drop}")
+        for d in drop:
+            if normalized(d["name"]) not in items_with_recipes:
+                items_with_recipes.append(normalized(d["name"] if "display_name" not in d else d["display_name"]))
+
+    orphans = list(set(items_used) - set(items_with_recipes))
+
+    clear()
+
+    print("The following items have been used but not assigned a recipe:")
+    [print(f"- {item}") for item in orphans]
+
+    print(f"In total there are {len(orphans)} orphaned items")
+
+    input("Press enter to continue...")
+
 def main():
     clear()
 
@@ -209,10 +259,12 @@ def main():
         print("2. Create RNG drop")
         print("3. Create Mob drop")
         print("4. Reload (Discard unsaved changes)")
-        print("5. Save")
-        print("6. Save & Exit")
-        print("7. Exit")
-        print("8. Print all")
+        print("5. Find orphans (Items that are used but no recipe)")
+        print("6. Save")
+        print("7. Save & Exit")
+        print("8. Exit")
+        print("9. Print all")
+        print("10. Restart script")
 
         match (input("Enter command >> ")):
             case "1":
@@ -224,18 +276,22 @@ def main():
             case "4":
                 recipes, rng_drops, mob_drops = load()
             case "5":
-                save(recipes, rng_drops, mob_drops)
+                find_orphans(recipes, rng_drops, mob_drops)
             case "6":
                 save(recipes, rng_drops, mob_drops)
-                break
             case "7":
+                save(recipes, rng_drops, mob_drops)
                 break
             case "8":
+                break
+            case "9":
                 print(recipes)
                 print(rng_drops)
                 print(mob_drops)
 
                 input("Press enter to continue...")
+            case "10":
+                os.execv(sys.argv[0], sys.argv)
             case _:
                 print("That is not an option!")
                 time.sleep(1)
@@ -245,6 +301,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
+        print("")
         pass
     except Exception as e:
         raise e

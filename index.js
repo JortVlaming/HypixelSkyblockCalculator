@@ -1,7 +1,7 @@
 let recipes = {};
 let rng_drops = {};
 let mob_drops = {};
-let all_items = []
+let allItems = []
 
 fetch("./items.json")
     .then((response) => response.json())
@@ -10,6 +10,7 @@ fetch("./items.json")
         rng_drops = Object.values(data["rng_drops"]).map(item => ({ ...item, category: "RNG Drop" }));
         mob_drops = Object.values(data["mob_drops"]).map(item => ({ ...item, category: "Mob Drop" }));
         allItems = [...recipes, ...rng_drops, ...mob_drops];
+        console.log(allItems);
     });
 
 const itemSelector = document.getElementById("itemInput");

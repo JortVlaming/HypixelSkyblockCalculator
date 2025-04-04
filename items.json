@@ -12,8 +12,8 @@
     },
     {
       "name": "test rng drop for testing",
-      "source": "Your moms house",
-      "chance": "1 in 100 (1%)"
+      "source": "Your dads house",
+      "chance": "1 in 1000 (1%)"
     }
   ],
   "mob_drops": [

@@ -97,3 +97,7 @@ footer {
 .autocomplete-item:hover {
     background-color: #f0f0f0;
 }
+
+.crafting-tree {
+    text-align: left;
+}

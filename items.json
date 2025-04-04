@@ -1,7 +1,19 @@
 {
   "recipes": [
     {
-      "name": "test_item_for_testing"
+      "name": "test_item_for_testing",
+      "quantity": 1,
+      "components": {
+        "diamond_block": 9,
+        "dirt": 9
+      }
+    },
+    {
+      "name": "diamond_block",
+      "quantity": 1,
+      "components": {
+        "diamond": 9
+      }
     }
   ],
   "rng_drops": [

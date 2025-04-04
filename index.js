@@ -14,6 +14,7 @@ fetch("./items.json")
     });
 
 const itemSelector = document.getElementById("itemInput");
+const quantityInput = document.getElementById("itemQuantityInput");
 itemSelector.value = "";
 const itemDropdown = document.querySelector(".itemAutoCompleteItems");
 const autocompleteLimit = 10;
@@ -79,11 +80,55 @@ function calculateCrafting() {
     tree.innerHTML = "";
     switch (itemSelector.dataset.category) {
         case "Recipe": {
+            function get_item(item_name) {
+                return allItems.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === item_name.toLowerCase().replaceAll(" ", "_"));
+            }
+            let actual_item = get_item(itemSelector.value);
+
+            actual_item = actual_item[0];
+
+            let title = document.createElement("h1");
+            title.innerHTML = titleCase(actual_item.name.replaceAll("_", " "));
+
+            let result = document.createElement("b");
+            result.innerText = "Result quantity: " + actual_item.quantity * parseInt(quantityInput.value);
+
+            tree.appendChild(title);
+            tree.appendChild(result);
+            tree.appendChild(document.createElement("br"));
+            tree.appendChild(document.createElement("br"));
+
+            function create_tree(item_name, depth) {
+                let item = get_item(item_name);
+                if (item === undefined) {
+                    return;
+                }
+                item = item[0];
+                for (const [key, value] of Object.entries(item["components"])) {
+                    let i = get_item(key);
+                    console.log(depth + " " + key + " " + value)
+                    i = i[0]
+                    if (i === undefined) {
+                        let current = document.createElement("p");
+                        current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(key.replaceAll("_", " ")) + " x " + value * parseInt(quantityInput.value);
+                        tree.appendChild(current);
+                        continue;
+                    }
+                    let current = document.createElement("p");
+                    current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(i["name"].replaceAll("_", " ")) + " x " + value * parseInt(quantityInput.value);
+                    tree.appendChild(current);
+                    if (Object.keys(i["components"]).length > 0) {
+                        create_tree(i["name"], depth + 1);
+                    }
+                }
+            }
+
+            create_tree(actual_item.name, 0);
 
             break;
         }
         case "RNG Drop": {
-            let actual_item = rng_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
+            let actual_item = rng_drops.filter(item => item.category === "RNG Drop" && item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
             if (actual_item.length === 0) {
                 return;
             }
@@ -108,7 +153,7 @@ function calculateCrafting() {
             break;
         }
         case "Mob Drop": {
-            let actual_item = mob_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
+            let actual_item = mob_drops.filter(item => item.category === "Mob Drop" && item.name.toLowerCase().replaceAll(" ", "_") === itemSelector.value.toLowerCase().replaceAll(" ", "_"));
             if (actual_item.length === 0) {
                 return;
             }

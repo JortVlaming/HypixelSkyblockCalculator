@@ -1,5 +1,699 @@
 {
-  "recipes": [],
+  "recipes": [
+    {
+      "name": "refined_diamond",
+      "quantity": 1,
+      "components": {
+        "enchanted_diamond_block": 2
+      }
+    },
+    {
+      "name": "refined_mithril",
+      "quantity": 1,
+      "components": {
+        "enchanted_mithril": 160
+      }
+    },
+    {
+      "name": "refined_titanium",
+      "quantity": 1,
+      "components": {
+        "enchanted_titanium": 16
+      }
+    },
+    {
+      "name": "bejeweled_handle",
+      "quantity": 1,
+      "components": {
+        "glacite_jewel": 3
+      }
+    },
+    {
+      "name": "drill_motor",
+      "quantity": 1,
+      "components": {
+        "treasurite": 10,
+        "enchanted_iron_block": 1,
+        "enchanted_redstone_block": 3,
+        "golden_plate": 1
+      }
+    },
+    {
+      "name": "fuel_canister",
+      "quantity": 1,
+      "components": {
+        "enchanted_coal_block": 2
+      }
+    },
+    {
+      "name": "gemstone_mixture",
+      "quantity": 1,
+      "components": {
+        "fine_jade_gemstone": 4,
+        "fine_amber_gemstome": 4,
+        "fine_amethyst_gemstone": 4,
+        "fine_sapphire_gemstone": 4,
+        "sludge_juice": 320
+      }
+    },
+    {
+      "name": "golden_plate",
+      "quantity": 1,
+      "components": {
+        "refined_diamond": 1,
+        "enchanted_gold_block": 2,
+        "glacite_jewel": 5
+      }
+    },
+    {
+      "name": "mithril_plate",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 1,
+        "refined_mithril": 5,
+        "golden_plate": 1,
+        "enchanted_iron_block": 1
+      }
+    },
+    {
+      "name": "mithril_drill_sx-r226",
+      "quantity": 1,
+      "components": {
+        "refined_mithril": 3,
+        "fuel_canister": 1,
+        "drill_motor": 1
+      }
+    },
+    {
+      "name": "mithril_drill_sx-r326",
+      "quantity": 1,
+      "components": {
+        "mithril_drill_sx-r226": 1,
+        "golden_plate": 1,
+        "mithril_plate": 1
+      }
+    },
+    {
+      "name": "ruby_drill_tx-15",
+      "quantity": 1,
+      "components": {
+        "fine_ruby_gemstone": 6,
+        "fuel_canister": 1,
+        "drill_motor": 1
+      }
+    },
+    {
+      "name": "gemstone_drill_lt-522",
+      "quantity": 1,
+      "components": {
+        "ruby_drill_tx-15": 1,
+        "gemstone_mixture": 3
+      }
+    },
+    {
+      "name": "topaz_drill_kgr-12",
+      "quantity": 1,
+      "components": {
+        "gemstone_drill_lt-522": 1,
+        "flawless_topaz_gemstone": 1,
+        "gemstone_mixture": 3,
+        "magma_core": 8
+      }
+    },
+    {
+      "name": "jasper_drill_x",
+      "quantity": 1,
+      "components": {
+        "topaz_drill_kgr-12": 1,
+        "flawless_jasper_gemstone": 1,
+        "treasurite": 100,
+        "magma_core": 16
+      }
+    },
+    {
+      "name": "topaz_rod",
+      "quantity": 1,
+      "components": {
+        "flawless_topaz_gemstone": 2,
+        "bejeweled_handle": 3
+      }
+    },
+    {
+      "name": "titanium_drill_dr-x355",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 8,
+        "refined_mithril": 8,
+        "drill_motor": 1,
+        "fuel_canister": 1,
+        "golden_plate": 6
+      }
+    },
+    {
+      "name": "titanium_drill_dr-x455",
+      "quantity": 1,
+      "components": {
+        "titanium_drill_dr-x355": 1,
+        "refined_diamond": 10,
+        "refined_titanium": 12,
+        "mithril_plate": 5
+      }
+    },
+    {
+      "name": "titanium_drill_dr-x555",
+      "quantity": 1,
+      "components": {
+        "titanium_drill_dr-x455": 1,
+        "refined_diamond": 20,
+        "refined_titanium": 16,
+        "enchanted_iron_block": 2,
+        "mithril_plate": 10,
+        "plasma": 20
+      }
+    },
+    {
+      "name": "titanium_drill_dr-x655",
+      "quantity": 1,
+      "components": {
+        "titanium_drill_dr-x555": 1,
+        "flawless_ruby_gemstone": 1,
+        "corleonite": 30,
+        "refined_diamond": 5,
+        "refined_titanium": 32,
+        "gemstone_mixture": 16,
+        "mithril_plate": 10
+      }
+    },
+    {
+      "name": "mithril_necklace",
+      "quantity": 1,
+      "components": {
+        "enchanted_mithril": 3
+      }
+    },
+    {
+      "name": "mithril_cloak",
+      "quantity": 1,
+      "components": {
+        "enchanted_mithril": 3
+      }
+    },
+    {
+      "name": "mithril_belt",
+      "quantity": 1,
+      "components": {
+        "enchanted_mithril": 3
+      }
+    },
+    {
+      "name": "mithril_gauntlet",
+      "quantity": 1,
+      "components": {
+        "enchanted_mithril": 3
+      }
+    },
+    {
+      "name": "titanium_necklace",
+      "quantity": 1,
+      "components": {
+        "refined_mineral": 16,
+        "refined_titanium": 1,
+        "mithril_necklace": 1
+      }
+    },
+    {
+      "name": "titanium_cloak",
+      "quantity": 1,
+      "components": {
+        "refined_mineral": 16,
+        "refined_titanium": 1,
+        "mithril_cloak": 1
+      }
+    },
+    {
+      "name": "titanium_belt",
+      "quantity": 1,
+      "components": {
+        "refined_mineral": 16,
+        "refined_titanium": 1,
+        "mithril_belt": 1
+      }
+    },
+    {
+      "name": "titanium_gauntlet",
+      "quantity": 1,
+      "components": {
+        "refined_mineral": 16,
+        "refined_titanium": 1,
+        "mithril_gauntlet": 1
+      }
+    },
+    {
+      "name": "titanium_talisman",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 2
+      }
+    },
+    {
+      "name": "titanium_ring",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 6,
+        "titanium_talisman": 1
+      }
+    },
+    {
+      "name": "titanium_artifact",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 12,
+        "titanium_ring": 1
+      }
+    },
+    {
+      "name": "titanium_relic",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 20,
+        "titanium_artifact": 1
+      }
+    },
+    {
+      "name": "divan's_powder_coating",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "refined_mineral": 32,
+        "divan_fragment": 5,
+        "enchanted_gold_block": 16
+      }
+    },
+    {
+      "name": "helmet_of_divan",
+      "quantity": 1,
+      "components": {
+        "flawless_ruby_gemstone": 1,
+        "divan_fragment": 5,
+        "gemstone_mixture": 10
+      }
+    },
+    {
+      "name": "chestplate_of_divan",
+      "quantity": 1,
+      "components": {
+        "flawless_ruby_gemstone": 1,
+        "divan_fragment": 8,
+        "gemstone_mixture": 10
+      }
+    },
+    {
+      "name": "leggings_of_divan",
+      "quantity": 1,
+      "components": {
+        "flawless_ruby_gemstone": 1,
+        "divan_fragment": 7,
+        "gemstone_mixture": 10
+      }
+    },
+    {
+      "name": "boots_of_divan",
+      "quantity": 1,
+      "components": {
+        "flawless_ruby_gemstone": 1,
+        "divan_fragment": 4,
+        "gemstone_mixture": 10
+      }
+    },
+    {
+      "name": "amber_necklace",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "flawless_amber_gemstone": 2
+      }
+    },
+    {
+      "name": "sapphire_cloak",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "flawless_sapphire_gemstone": 2
+      }
+    },
+    {
+      "name": "jade_belt",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "flawless_jade_gemstone": 2
+      }
+    },
+    {
+      "name": "amethyst_gauntlet",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "flawless_amethyst_gemstone": 2
+      }
+    },
+    {
+      "name": "gemstone_chamber",
+      "quantity": 1,
+      "components": {
+        "worm_membrane": 100,
+        "gemstone_mixture": 1,
+        "coins": 25000
+      }
+    },
+    {
+      "name": "diamonite",
+      "quantity": 1,
+      "components": {
+        "refined_diamond": 3
+      }
+    },
+    {
+      "name": "pocket_iceberg",
+      "quantity": 1,
+      "components": {
+        "glacite_jewel": 5
+      }
+    },
+    {
+      "name": "petrified_starfall",
+      "quantity": 1,
+      "components": {
+        "starfall": 512
+      }
+    },
+    {
+      "name": "pure_mithril",
+      "quantity": 1,
+      "components": {
+        "refined_mithril": 2
+      }
+    },
+    {
+      "name": "dwarven_geode",
+      "quantity": 1,
+      "components": {
+        "enchanted_cobblestone": 128,
+        "treasurite": 64
+      }
+    },
+    {
+      "name": "titanium_tesseract",
+      "quantity": 1,
+      "components": {
+        "refined_titanium": 1,
+        "enchanted_lapis_lazuli": 16
+      }
+    },
+    {
+      "name": "gleaming_crystal",
+      "quantity": 1,
+      "components": {
+        "glossy_gemstone": 32,
+        "refined_mithril": 1,
+        "refined_diamond": 2
+      }
+    },
+    {
+      "name": "scorched_topaz",
+      "quantity": 1,
+      "components": {
+        "enchanted_hard_stone": 128,
+        "flawless_topaz_gemstone": 1
+      }
+    },
+    {
+      "name": "amber_material",
+      "quantity": 1,
+      "components": {
+        "fine_amber_gemstone": 12,
+        "golden_plate": 1
+      }
+    },
+    {
+      "name": "starfall_seasoning",
+      "quantity": 1,
+      "components": {
+        "treasurite": 16,
+        "starfall": 64
+      }
+    },
+    {
+      "name": "goblin_omelette",
+      "quantity": 1,
+      "components": {
+        "goblin_egg": 96
+      }
+    },
+    {
+      "name": "blue_cheese_goblin_omelette",
+      "quantity": 96,
+      "components": {
+        "blue_goblin_egg": 96,
+        "flawless_sapphire_gemstone": 1,
+        "goblin_omelette": 1
+      }
+    },
+    {
+      "name": "pesto_goblin_omelette",
+      "display_name": "Pesto Goblin Omelette",
+      "quantity": 1,
+      "components": {
+        "green_goblin_egg": 96,
+        "flawless_jade_gemstone": 1,
+        "goblin_omelette": 1
+      }
+    },
+    {
+      "name": "spicy_goblin_omelette",
+      "display_name": "Spicy Goblin Omelette",
+      "quantity": 1,
+      "components": {
+        "red_goblin_egg": 96,
+        "flawless_ruby_gemstone": 1,
+        "goblin_omelette": 1
+      }
+    },
+    {
+      "name": "sunny_side_goblin_omelette",
+      "display_name": "Sunny Side Goblin Omelette",
+      "quantity": 1,
+      "components": {
+        "yellow_goblin_egg": 96,
+        "flawless_topaz_gemstone": 1,
+        "goblin_omelette": 1
+      }
+    },
+    {
+      "name": "mithril-plated_drill_engine",
+      "display_name": "Mithril-Plated Drill Engine",
+      "quantity": 1,
+      "components": {
+        "drill_motor": 2,
+        "mithril_plate": 1
+      }
+    },
+    {
+      "name": "titanium-plated_drill_engine",
+      "display_name": "Titanium-Plated Drill Engine",
+      "quantity": 1,
+      "components": {
+        "mithril-plated_drill_engine": 1,
+        "refined_titanium": 8,
+        "drill_motor": 2
+      }
+    },
+    {
+      "name": "mithril-infused_fuel_tank",
+      "display_name": "Mithril-Infused Fuel Tank",
+      "quantity": 1,
+      "components": {
+        "refined_diamond": 5,
+        "refined_mithril": 10,
+        "fuel_canister": 5
+      }
+    },
+    {
+      "name": "titanium-infused_fuel_tank",
+      "display_name": "Titanium-Infused Fuel Tank",
+      "quantity": 1,
+      "components": {
+        "mithril-infused_fuel_tank": 1,
+        "refined_titanium": 10,
+        "refined_diamond": 5,
+        "fuel_canister": 5
+      }
+    },
+    {
+      "name": "perfect_amber_gemstone",
+      "display_name": "Perfect Amber Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_amber_gemstone": 5,
+        "amber_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_amethyst_gemstone",
+      "display_name": "Perfect Amethyst Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_amethyst_gemstone": 5,
+        "amethyst_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_jade_gemstone",
+      "display_name": "Perfect Jade Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_jade_gemstone": 5,
+        "jade_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_jasper_gemstone",
+      "display_name": "Perfect Jasper Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_jasper_gemstone": 5,
+        "jasper_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_opal_gemstone",
+      "display_name": "Perfect Opal Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_opal_gemstone": 5,
+        "opal_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_ruby_gemstone",
+      "display_name": "Perfect Ruby Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_ruby_gemstone": 5,
+        "ruby_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_sapphire_gemstone",
+      "display_name": "Perfect Sapphire Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_sapphire_gemstone": 5,
+        "sapphire_crystal": 1
+      }
+    },
+    {
+      "name": "perfect_topaz_gemstone",
+      "display_name": "Perfect Topaz Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawless_topaz_gemstone": 5,
+        "topaz_crystal": 1
+      }
+    },
+    {
+      "name": "bejeweled_collar",
+      "display_name": "Bejeweled Collar",
+      "quantity": 1,
+      "components": {
+        "refined_mithril": 4,
+        "bejeweled_handle": 1
+      }
+    },
+    {
+      "name": "mole",
+      "display_name": "Mole",
+      "quantity": 1,
+      "components": {
+        "claw_fossil": 1,
+        "coins": 300000
+      }
+    },
+    {
+      "name": "ammonite",
+      "display_name": "Ammonite",
+      "quantity": 1,
+      "components": {
+        "helix_fossil": 1,
+        "coins": 300000
+      }
+    },
+    {
+      "name": "beacon_ii",
+      "display_name": "Beacon II",
+      "quantity": 1,
+      "components": {
+        "beacon_i": 1,
+        "refined_mithril": 5
+      }
+    },
+    {
+      "name": "beacon_iii",
+      "display_name": "Beacon III",
+      "quantity": 1,
+      "components": {
+        "beacon_ii": 1,
+        "refined_mithril": 10
+      }
+    },
+    {
+      "name": "beacon_iv",
+      "display_name": "Beacon IV",
+      "quantity": 1,
+      "components": {
+        "beacon_iii": 1,
+        "refined_mithril": 20,
+        "plasma": 1
+      }
+    },
+    {
+      "name": "beacon_v",
+      "display_name": "Beacon V",
+      "quantity": 1,
+      "components": {
+        "beacon_iv": 1,
+        "refined_mithril": 40,
+        "plasma": 5
+      }
+    },
+    {
+      "name": "travel_scroll_to_the_dwarven_forge",
+      "display_name": "Travel Scroll to the Dwarven Forge",
+      "quantity": 1,
+      "components": {
+        "titanium": 80,
+        "enchanted_ender_pearl": 16,
+        "mithril": 48,
+        "coins": 25000
+      }
+    },
+    {
+      "name": "power_crystal",
+      "display_name": "Power Crystal",
+      "quantity": 1,
+      "components": {
+        "starfall": 256
+      }
+    }
+  ],
   "rng_drops": [],
-  "mob_drops": []
+  "mob_drops": [
+    {
+      "name": "Glacite Jewel",
+      "source": "Glacite Walker",
+      "minimumDrop": 1,
+      "maximumDrop": 1,
+      "chance": "1 in 200 (0.50000%)"
+    }
+  ]
 }

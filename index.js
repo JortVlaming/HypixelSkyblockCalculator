@@ -143,10 +143,18 @@ function calculateCrafting() {
                 separator.classList.add("inputSpacer");
 
                 let chance = document.createElement("p");
-                chance.innerHTML = "Drop chance: " + item.chance;
+                chance.innerHTML = "Drop chance: " + item["chance"];
+
+                let amount = document.createElement("p");
+                if (item["minimumDrop"] === item["maximumDrop"]) {
+                    amount.innerHTML = "Drop amount: " + item["minimumDrop"] + "x";
+                } else {
+                    amount.innerHTML = "Drop amount: " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x";
+                }
 
                 tree.appendChild(source);
                 tree.appendChild(chance);
+                tree.appendChild(amount);
                 tree.appendChild(separator);
             });
 

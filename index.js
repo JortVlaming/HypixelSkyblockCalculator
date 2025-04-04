@@ -91,7 +91,7 @@ function calculateCrafting() {
             title.innerHTML = titleCase(actual_item.name.replaceAll("_", " "));
 
             let result = document.createElement("b");
-            result.innerText = "Result quantity: " + actual_item.quantity * parseInt(quantityInput.value);
+            result.innerText = "Result quantity: " + actual_item["quantity"] * parseInt(quantityInput.value);
 
             tree.appendChild(title);
             tree.appendChild(result);
@@ -117,7 +117,33 @@ function calculateCrafting() {
                     let current = document.createElement("p");
                     current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(i["name"].replaceAll("_", " ")) + " x " + value * parseInt(quantityInput.value);
                     tree.appendChild(current);
-                    if (Object.keys(i["components"]).length > 0) {
+                    if (i["category"] === "RNG Drop") {
+                        let b = document.createElement("b");
+                        b.innerText = "⠀".repeat(depth*4) + "This is an RNG Drop!";
+                        //tree.appendChild(b);
+                        let sources = rng_drops.filter(drop => drop.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"))
+                        sources.forEach(item => {
+                            let source = document.createElement("p");
+                            if (item["minimumDrop"] === item["maximumDrop"])
+                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                            else
+                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                            tree.appendChild(source)
+                        })
+                    } else if (i["category"] === "Mob Drop") {
+                        let b = document.createElement("b");
+                        b.innerText = "⠀".repeat(depth*4) + "This is a Mob Drop!";
+                        //tree.appendChild(b)
+                        let sources = mob_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"));
+                        sources.forEach(item => {
+                            let source = document.createElement("p");
+                            if (item["minimumDrop"] === item["maximumDrop"])
+                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                            else
+                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                            tree.appendChild(source)
+                        })
+                    } else if (Object.keys(i["components"]).length > 0) {
                         create_tree(i["name"], depth + 1);
                     }
                 }

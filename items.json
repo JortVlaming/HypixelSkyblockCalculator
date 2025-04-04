@@ -5,7 +5,8 @@
       "quantity": 1,
       "components": {
         "diamond_block": 9,
-        "dirt": 9
+        "test rng drop for testing": 9,
+        "test mob drop for testing": 9
       }
     },
     {
@@ -29,7 +30,7 @@
       "source": "Your dads house",
       "minimumDrop": 1,
       "maximumDrop": 3,
-      "chance": "1 in 1000 (1%)"
+      "chance": "1 in 1000 (0.1%)"
     }
   ],
   "mob_drops": [

@@ -14,9 +14,9 @@ let allItems = []
 fetch("./items.json")
     .then((response) => response.json())
     .then((data) => {
-        recipes = Object.values(data["recipes"]).map(item => ({ ...item, category: "Recipe" }));
-        rng_drops = Object.values(data["rng_drops"]).map(item => ({ ...item, category: "RNG Drop" }));
-        mob_drops = Object.values(data["mob_drops"]).map(item => ({ ...item, category: "Mob Drop" }));
+        recipes = Object.values(data["recipes"]).map(item => ({...item, category: "Recipe"}));
+        rng_drops = Object.values(data["rng_drops"]).map(item => ({...item, category: "RNG Drop"}));
+        mob_drops = Object.values(data["mob_drops"]).map(item => ({...item, category: "Mob Drop"}));
         allItems = [...recipes, ...rng_drops, ...mob_drops];
         console.log(allItems);
     });
@@ -39,20 +39,20 @@ function titleCase(str) {
 }
 
 function formatBigInt(num) {
-  return num.toLocaleString('en-US');
+    return num.toLocaleString('en-US');
 }
 
 function sortDictByValue(obj, descending = false) {
-  const sortedEntries = Object.entries(obj).sort((a, b) => {
-    return descending ? b[1] - a[1] : a[1] - b[1];
-  });
+    const sortedEntries = Object.entries(obj).sort((a, b) => {
+        return descending ? b[1] - a[1] : a[1] - b[1];
+    });
 
-  // Convert back to object with formatted values
-  const sortedObj = {};
-  for (const [key, value] of sortedEntries) {
-    sortedObj[key] = formatBigInt(value);
-  }
-  return sortedObj;
+    // Convert back to object with formatted values
+    const sortedObj = {};
+    for (const [key, value] of sortedEntries) {
+        sortedObj[key] = formatBigInt(value);
+    }
+    return sortedObj;
 }
 
 function findExactMatch(value) {
@@ -108,6 +108,7 @@ function calculateCrafting() {
             function get_item(item_name) {
                 return allItems.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === item_name.toLowerCase().replaceAll(" ", "_"));
             }
+
             let actual_item = get_item(itemSelector.value);
 
             actual_item = actual_item[0];
@@ -195,30 +196,27 @@ function calculateCrafting() {
                         sources.forEach(item => {
                             let source = document.createElement("p");
                             if (item["minimumDrop"] === item["maximumDrop"])
-                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                                source.innerText = "⠀".repeat((depth + 1) * 2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
-                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                                source.innerText = "⠀".repeat((depth + 1) * 2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             current.classList.add("RawMaterialItem");
                             current.appendChild(source)
                         })
-                    }
-                    else if (i["category"] === "Mob Drop") {
+                    } else if (i["category"] === "Mob Drop") {
                         let sources = mob_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"));
                         sources.forEach(item => {
                             let source = document.createElement("p");
                             if (item["minimumDrop"] === item["maximumDrop"])
-                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                                source.innerText = "⠀".repeat((depth + 1) * 2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
-                                source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                                source.innerText = "⠀".repeat((depth + 1) * 2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             current.classList.add("RawMaterialItem");
                             current.appendChild(source);
                         })
-                    }
-                    else if (Object.keys(i["components"]).length > 0) {
+                    } else if (Object.keys(i["components"]).length > 0) {
                         console.log("Creating tree for " + i["name"] + " with a quantity of " + value + " and multiplier of " + value * multiplier)
                         create_tree(i["name"], depth + 1, value * multiplier, current);
-                    }
-                    else {
+                    } else {
                         current.classList.add("RawMaterialItem");
                         console.log(rawItemsDict);
                     }
@@ -228,42 +226,38 @@ function calculateCrafting() {
             function calculate_raw_cost() {
                 rawItemsDict = {};
                 rawItems.innerHTML = "";
+                let processedNodes = new Set();
 
-                let topLevels = document.getElementsByClassName("TopLevelItem")
-
-                console.log(topLevels);
+                let topLevels = document.getElementsByClassName("TopLevelItem");
 
                 function handle_dropdown(dropdown) {
-                    console.log("Processing " + dropdown)
-                    let button = dropdown.querySelector("input[type=checkbox]");
+                    if (processedNodes.has(dropdown)) {
+                        return; // Already processed
+                    }
+                    processedNodes.add(dropdown);
 
-                    if (button.checked) {
-                        console.log("dropdown has been marked as completed")
+                    let button = dropdown.querySelector("input[type=checkbox]");
+                    if (button && button.checked) {
                         return;
                     }
 
-                    if (dropdown.classList !== undefined && dropdown.classList !== null && dropdown.classList.contains("RawMaterialItem")) {
-                        let text;
-                        try {
-                            text = dropdown.getElementsByTagName("p")[0];
-                        } catch (e) {
-                            return;
+                    if (dropdown.classList && dropdown.classList.contains("RawMaterialItem")) {
+                        let textElem = dropdown.querySelector("p");
+                        if (!textElem) return;
+
+                        let [itemName, itemCount] = textElem.textContent.split(" x ");
+                        itemCount = parseInt(itemCount);
+
+                        if (!isNaN(itemCount)) {
+                            rawItemsDict[itemName] = (rawItemsDict[itemName] || 0) + itemCount;
                         }
-
-                        let splitText = text.innerHTML.split(" x ");
-
-                        if (rawItemsDict[splitText[0]] !== null && rawItemsDict[splitText[0]] !== undefined) {
-                            rawItemsDict[splitText[0]] += parseInt(splitText[1])
-                        } else {
-                            rawItemsDict[splitText[0]] = parseInt(splitText[1])
-                        }
-
-                        console.log(splitText[0] + " has " + rawItemsDict[splitText[0]])
                     } else {
-                        let children = dropdown.getElementsByTagName("details")
-
+                        // Use direct children only if needed
+                        let children = dropdown.children;
                         for (let child of children) {
-                            handle_dropdown(child)
+                            if (child.tagName.toLowerCase() === "details") {
+                                handle_dropdown(child);
+                            }
                         }
                     }
                 }
@@ -274,14 +268,13 @@ function calculateCrafting() {
 
                 rawItemsDict = sortDictByValue(rawItemsDict, true);
 
-                console.log(rawItemsDict);
                 for (const [iKey, iValue] of Object.entries(rawItemsDict)) {
-                    console.log(iKey, iValue);
-                    let r = document.createElement("li")
+                    let r = document.createElement("li");
                     r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + formatBigInt(iValue);
                     rawItems.appendChild(r);
                 }
             }
+
 
             create_tree(actual_item.name, 0, parseInt(quantityInput.value), null);
             calculate_raw_cost();

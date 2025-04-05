@@ -50,7 +50,7 @@
       "quantity": 1,
       "components": {
         "fine_jade_gemstone": 4,
-        "fine_amber_gemstome": 4,
+        "fine_amber_gemstone": 4,
         "fine_amethyst_gemstone": 4,
         "fine_sapphire_gemstone": 4,
         "sludge_juice": 320
@@ -779,6 +779,70 @@
       "quantity": 1,
       "components": {
         "coal": 160
+      }
+    },
+    {
+      "name": "fine_amber_gemstone",
+      "display_name": "Fine Amber Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawed_amber_gemstone": 80
+      }
+    },
+    {
+      "name": "flawed_amber_gemstone",
+      "display_name": "Flawed Amber Gemstone",
+      "quantity": 1,
+      "components": {
+        "rough_amber_gemstone": 80
+      }
+    },
+    {
+      "name": "fine_amethyst_gemstone",
+      "display_name": "Fine Amethyst Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawed_amethyst_gemstone": 80
+      }
+    },
+    {
+      "name": "flawed_amethyst_gemstone",
+      "display_name": "Flawed Amethyst Gemstone",
+      "quantity": 1,
+      "components": {
+        "rough_amethyst_gemstone": 80
+      }
+    },
+    {
+      "name": "fine_jade_gemstone",
+      "display_name": "Fine Jade Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawed_jade_gemstone": 80
+      }
+    },
+    {
+      "name": "flawed_jade_gemstone",
+      "display_name": "Flawed Jade Gemstone",
+      "quantity": 1,
+      "components": {
+        "rough_jade_gemstone": 80
+      }
+    },
+    {
+      "name": "fine_sapphire_gemstone",
+      "display_name": "Fine Sapphire Gemstone",
+      "quantity": 1,
+      "components": {
+        "flawed_sapphire_gemstone": 80
+      }
+    },
+    {
+      "name": "flawed_sapphire_gemstone",
+      "display_name": "Flawed Sapphire Gemstone",
+      "quantity": 1,
+      "components": {
+        "rough_sapphire_gemstone": 80
       }
     }
   ],

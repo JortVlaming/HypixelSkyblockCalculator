@@ -103,6 +103,7 @@ summary {
     border: gray 1px solid;
     border-radius: 15px;
     cursor: pointer;
+    display: flex;
 }
 
 details details {

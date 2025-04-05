@@ -126,10 +126,15 @@ function calculateCrafting() {
             }
 
             function create_item_dropdown_item(name, amount) {
+                let complete = document.createElement("input")
+                complete.type = "checkbox"
                 let current = document.createElement("details");
 
                 let sum = document.createElement("summary");
-                sum.innerText = titleCase(name.replaceAll("_", " ")) + " x " + amount
+                sum.appendChild(complete)
+                let sumText = document.createElement("p")
+                sumText.innerText = titleCase(name.replaceAll("_", " ")) + " x " + amount
+                sum.appendChild(sumText)
 
                 current.appendChild(sum);
 
@@ -148,15 +153,12 @@ function calculateCrafting() {
                     if (i === undefined) {
                         let current = create_item_dropdown_item(key, value * multiplier)
 
+                        current.classList.add("RawMaterialItem");
+
                         if (parent !== null && parent !== undefined)
                             parent.appendChild(current);
                         else
                             tree.appendChild(current);
-                        if (rawItemsDict[key] !== undefined && rawItemsDict[key] !== null) {
-                            rawItemsDict[key] += value * multiplier;
-                        } else {
-                            rawItemsDict[key] = value * multiplier;
-                        }
                         console.log(rawItemsDict)
                         continue;
                     }
@@ -165,8 +167,10 @@ function calculateCrafting() {
 
                     if (parent !== null && parent !== undefined)
                         parent.appendChild(current);
-                    else
+                    else {
                         tree.appendChild(current);
+                        current.classList.add("TopLevelItem");
+                    }
 
                     if (i["category"] === "RNG Drop") {
                         let sources = rng_drops.filter(drop => drop.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"))
@@ -176,6 +180,7 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
+                            current.classList.add("RawMaterialItem");
                             current.appendChild(source)
                         })
                     }
@@ -187,7 +192,8 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
-                            current.appendChild(source)
+                            current.classList.add("RawMaterialItem");
+                            current.appendChild(source);
                         })
                     }
                     else if (Object.keys(i["components"]).length > 0) {
@@ -195,25 +201,48 @@ function calculateCrafting() {
                         create_tree(i["name"], depth + 1, value * multiplier, current);
                     }
                     else {
-                        if (rawItemsDict[get_title_name(i["name"])] !== undefined && rawItemsDict[get_title_name(i["name"])] !== null) {
-                            rawItemsDict[get_title_name(i["name"])] += value * multiplier;
-                        } else {
-                            rawItemsDict[get_title_name(i["name"])] = value * multiplier;
-                        }
-                        console.log(rawItemsDict)
+                        current.classList.add("RawMaterialItem");
+                        console.log(rawItemsDict);
                     }
+                }
+            }
+            
+            function calculate_raw_cost() {
+                rawItemsDict = {}
+                let raws = document.getElementsByClassName("RawMaterialItem")
+
+                for (let raw in raws) {
+                    raw = raws[raw]
+                    if (raw === null || raw === undefined) continue;
+                    let text;
+                    try {
+                        text = raw.getElementsByTagName("p")[0];
+                    } catch (e) {
+                        continue;
+                    }
+
+                    let splitText = text.innerHTML.split(" x ");
+
+                    console.log(splitText)
+
+                    if (rawItemsDict[splitText[0]] !== null && rawItemsDict[splitText[0]] !== undefined) {
+                        rawItemsDict[splitText[0]] += parseInt(splitText[1])
+                    } else {
+                        rawItemsDict[splitText[0]] = parseInt(splitText[1])
+                    }
+                }
+
+                console.log(rawItemsDict);
+                for (const [iKey, iValue] of Object.entries(rawItemsDict)) {
+                    console.log(iKey, iValue);
+                    let r = document.createElement("li")
+                    r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + iValue;
+                    rawItems.appendChild(r);
                 }
             }
 
             create_tree(actual_item.name, 0, parseInt(quantityInput.value), null);
-
-            console.log(rawItemsDict);
-            for (const [iKey, iValue] of Object.entries(rawItemsDict)) {
-                console.log(iKey, iValue);
-                let r = document.createElement("li")
-                r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + iValue;
-                rawItems.appendChild(r);
-            }
+            calculate_raw_cost();
 
             break;
         }

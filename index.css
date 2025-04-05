@@ -95,3 +95,21 @@ button:hover {
 .crafting-tree {
     text-align: left;
 }
+
+summary {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: gray 1px solid;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+details details {
+    width: 95%;
+    margin-left: 20px;
+}
+
+details {
+    margin-bottom: 10px;
+}

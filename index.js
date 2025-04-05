@@ -125,7 +125,18 @@ function calculateCrafting() {
                 return titleCase(item["name"].toLowerCase().replaceAll("_", " "))
             }
 
-            function create_tree(item_name, depth, multiplier) {
+            function create_item_dropdown_item(name, amount) {
+                let current = document.createElement("details");
+
+                let sum = document.createElement("summary");
+                sum.innerText = titleCase(name.replaceAll("_", " ")) + " x " + amount
+
+                current.appendChild(sum);
+
+                return current
+            }
+
+            function create_tree(item_name, depth, multiplier, parent) {
                 let item = get_item(item_name);
                 if (item === undefined) {
                     return;
@@ -135,9 +146,12 @@ function calculateCrafting() {
                     let i = get_item(key);
                     i = i[0]
                     if (i === undefined) {
-                        let current = document.createElement("p");
-                        current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(key.replaceAll("_", " ")) + " x " + value * multiplier;
-                        tree.appendChild(current);
+                        let current = create_item_dropdown_item(key, value * multiplier)
+
+                        if (parent !== null && parent !== undefined)
+                            parent.appendChild(current);
+                        else
+                            tree.appendChild(current);
                         if (rawItemsDict[key] !== undefined && rawItemsDict[key] !== null) {
                             rawItemsDict[key] += value * multiplier;
                         } else {
@@ -146,9 +160,14 @@ function calculateCrafting() {
                         console.log(rawItemsDict)
                         continue;
                     }
-                    let current = document.createElement("p");
-                    current.innerText = "⠀".repeat(depth*2) + " - " + get_title_name(i) + " x " + value * multiplier;
-                    tree.appendChild(current);
+
+                    let current = create_item_dropdown_item(i["name"], value * multiplier);
+
+                    if (parent !== null && parent !== undefined)
+                        parent.appendChild(current);
+                    else
+                        tree.appendChild(current);
+
                     if (i["category"] === "RNG Drop") {
                         let sources = rng_drops.filter(drop => drop.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"))
                         sources.forEach(item => {
@@ -157,7 +176,7 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
-                            tree.appendChild(source)
+                            current.appendChild(source)
                         })
                     }
                     else if (i["category"] === "Mob Drop") {
@@ -168,12 +187,12 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             else
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
-                            tree.appendChild(source)
+                            current.appendChild(source)
                         })
                     }
                     else if (Object.keys(i["components"]).length > 0) {
                         console.log("Creating tree for " + i["name"] + " with a quantity of " + value + " and multiplier of " + value * multiplier)
-                        create_tree(i["name"], depth + 1, value * multiplier);
+                        create_tree(i["name"], depth + 1, value * multiplier, current);
                     }
                     else {
                         if (rawItemsDict[get_title_name(i["name"])] !== undefined && rawItemsDict[get_title_name(i["name"])] !== null) {
@@ -186,7 +205,7 @@ function calculateCrafting() {
                 }
             }
 
-            create_tree(actual_item.name, 0, parseInt(quantityInput.value));
+            create_tree(actual_item.name, 0, parseInt(quantityInput.value), null);
 
             console.log(rawItemsDict);
             for (const [iKey, iValue] of Object.entries(rawItemsDict)) {

@@ -238,7 +238,14 @@ function calculateCrafting() {
 
                     let button = dropdown.querySelector("input[type=checkbox]");
                     if (button && button.checked) {
+                        if (dropdown.getElementsByTagName("summary")[0]) {
+                            dropdown.getElementsByTagName("summary")[0].classList.add("CompletedDropdown");
+                        }
                         return;
+                    } else {
+                        if (dropdown.getElementsByTagName("summary")[0]) {
+                            dropdown.getElementsByTagName("summary")[0].classList.remove("CompletedDropdown");
+                        }
                     }
 
                     if (dropdown.classList && dropdown.classList.contains("RawMaterialItem")) {

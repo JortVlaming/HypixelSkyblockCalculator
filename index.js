@@ -38,6 +38,23 @@ function titleCase(str) {
     return splitStr.join(' ');
 }
 
+function formatBigInt(num) {
+  return num.toLocaleString('en-US');
+}
+
+function sortDictByValue(obj, descending = false) {
+  const sortedEntries = Object.entries(obj).sort((a, b) => {
+    return descending ? b[1] - a[1] : a[1] - b[1];
+  });
+
+  // Convert back to object with formatted values
+  const sortedObj = {};
+  for (const [key, value] of sortedEntries) {
+    sortedObj[key] = formatBigInt(value);
+  }
+  return sortedObj;
+}
+
 function findExactMatch(value) {
     const normalizedValue = value.toLowerCase().replaceAll(" ", "_");
 
@@ -128,6 +145,7 @@ function calculateCrafting() {
             function create_item_dropdown_item(name, amount) {
                 let complete = document.createElement("input")
                 complete.type = "checkbox"
+                complete.addEventListener("change", calculate_raw_cost)
                 let current = document.createElement("details");
 
                 let sum = document.createElement("summary");
@@ -206,37 +224,61 @@ function calculateCrafting() {
                     }
                 }
             }
-            
-            function calculate_raw_cost() {
-                rawItemsDict = {}
-                let raws = document.getElementsByClassName("RawMaterialItem")
 
-                for (let raw in raws) {
-                    raw = raws[raw]
-                    if (raw === null || raw === undefined) continue;
-                    let text;
-                    try {
-                        text = raw.getElementsByTagName("p")[0];
-                    } catch (e) {
-                        continue;
+            function calculate_raw_cost() {
+                rawItemsDict = {};
+                rawItems.innerHTML = "";
+
+                let topLevels = document.getElementsByClassName("TopLevelItem")
+
+                console.log(topLevels);
+
+                function handle_dropdown(dropdown) {
+                    console.log("Processing " + dropdown)
+                    let button = dropdown.querySelector("input[type=checkbox]");
+
+                    if (button.checked) {
+                        console.log("dropdown has been marked as completed")
+                        return;
                     }
 
-                    let splitText = text.innerHTML.split(" x ");
+                    if (dropdown.classList !== undefined && dropdown.classList !== null && dropdown.classList.contains("RawMaterialItem")) {
+                        let text;
+                        try {
+                            text = dropdown.getElementsByTagName("p")[0];
+                        } catch (e) {
+                            return;
+                        }
 
-                    console.log(splitText)
+                        let splitText = text.innerHTML.split(" x ");
 
-                    if (rawItemsDict[splitText[0]] !== null && rawItemsDict[splitText[0]] !== undefined) {
-                        rawItemsDict[splitText[0]] += parseInt(splitText[1])
+                        if (rawItemsDict[splitText[0]] !== null && rawItemsDict[splitText[0]] !== undefined) {
+                            rawItemsDict[splitText[0]] += parseInt(splitText[1])
+                        } else {
+                            rawItemsDict[splitText[0]] = parseInt(splitText[1])
+                        }
+
+                        console.log(splitText[0] + " has " + rawItemsDict[splitText[0]])
                     } else {
-                        rawItemsDict[splitText[0]] = parseInt(splitText[1])
+                        let children = dropdown.getElementsByTagName("details")
+
+                        for (let child of children) {
+                            handle_dropdown(child)
+                        }
                     }
                 }
+
+                for (let topLevel of topLevels) {
+                    handle_dropdown(topLevel);
+                }
+
+                rawItemsDict = sortDictByValue(rawItemsDict, true);
 
                 console.log(rawItemsDict);
                 for (const [iKey, iValue] of Object.entries(rawItemsDict)) {
                     console.log(iKey, iValue);
                     let r = document.createElement("li")
-                    r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + iValue;
+                    r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + formatBigInt(iValue);
                     rawItems.appendChild(r);
                 }
             }

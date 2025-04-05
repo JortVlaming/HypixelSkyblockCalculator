@@ -684,6 +684,102 @@
       "components": {
         "starfall": 256
       }
+    },
+    {
+      "name": "enchanted_titanium",
+      "display_name": "Enchanted Titanium",
+      "quantity": 1,
+      "components": {
+        "titanium": 160
+      }
+    },
+    {
+      "name": "enchanted_mithril",
+      "display_name": "Enchanted Mithril",
+      "quantity": 1,
+      "components": {
+        "mithril": 160
+      }
+    },
+    {
+      "name": "enchanted_iron_block",
+      "display_name": "Enchanted Iron Block",
+      "quantity": 1,
+      "components": {
+        "enchanted_iron": 160
+      }
+    },
+    {
+      "name": "enchanted_iron",
+      "display_name": "Enchanted Iron",
+      "quantity": 1,
+      "components": {
+        "iron_ingot": 160
+      }
+    },
+    {
+      "name": "enchanted_redstone_block",
+      "display_name": "Enchanted Redstone Block",
+      "quantity": 1,
+      "components": {
+        "enchanted_redstone": 160
+      }
+    },
+    {
+      "name": "enchanted_redstone",
+      "display_name": "Enchanted Redstone",
+      "quantity": 1,
+      "components": {
+        "redstone_dust": 160
+      }
+    },
+    {
+      "name": "enchanted_diamond_block",
+      "display_name": "Enchanted Diamond Block",
+      "quantity": 1,
+      "components": {
+        "enchanted_diamond": 160
+      }
+    },
+    {
+      "name": "enchanted_diamond",
+      "display_name": "Enchanted Diamond",
+      "quantity": 1,
+      "components": {
+        "diamond": 160
+      }
+    },
+    {
+      "name": "enchanted_gold_block",
+      "display_name": "Enchanted Gold Block",
+      "quantity": 1,
+      "components": {
+        "enchanted_gold": 160
+      }
+    },
+    {
+      "name": "enchanted_gold",
+      "display_name": "Enchanted Gold",
+      "quantity": 1,
+      "components": {
+        "gold_ingot": 160
+      }
+    },
+    {
+      "name": "enchanted_coal_block",
+      "display_name": "Enchanted Coal Block",
+      "quantity": 1,
+      "components": {
+        "enchanted_coal": 160
+      }
+    },
+    {
+      "name": "enchanted_coal",
+      "display_name": "Enchanted Coal",
+      "quantity": 1,
+      "components": {
+        "coal": 160
+      }
     }
   ],
   "rng_drops": [],

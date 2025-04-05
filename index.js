@@ -96,17 +96,36 @@ function calculateCrafting() {
             actual_item = actual_item[0];
 
             let title = document.createElement("h1");
-            title.innerHTML = titleCase(actual_item.name.replaceAll("_", " "));
+            title.innerHTML = get_title_name(actual_item);
 
             let result = document.createElement("b");
             result.innerText = "Result quantity: " + actual_item["quantity"] * parseInt(quantityInput.value);
+
+            let rawItemsText = document.createElement("b")
+            rawItemsText.innerHTML = "Raw cost"
+            let rawItems = document.createElement("ul")
+
+            let treeText = document.createElement("b")
+            treeText.innerHTML = "Crafting Tree"
+
+            let rawItemsDict = {}
 
             tree.appendChild(title);
             tree.appendChild(result);
             tree.appendChild(document.createElement("br"));
             tree.appendChild(document.createElement("br"));
+            tree.appendChild(rawItemsText);
+            tree.appendChild(rawItems);
+            tree.appendChild(document.createElement("br"));
+            tree.appendChild(document.createElement("br"));
+            tree.appendChild(treeText)
 
-            function create_tree(item_name, depth) {
+            function get_title_name(item) {
+                if (item["display_name"] !== null && item["display_name"] !== undefined) return item["display_name"]
+                return titleCase(item["name"].toLowerCase().replaceAll("_", " "))
+            }
+
+            function create_tree(item_name, depth, multiplier) {
                 let item = get_item(item_name);
                 if (item === undefined) {
                     return;
@@ -114,21 +133,23 @@ function calculateCrafting() {
                 item = item[0];
                 for (const [key, value] of Object.entries(item["components"])) {
                     let i = get_item(key);
-                    console.log(depth + " " + key + " " + value)
                     i = i[0]
                     if (i === undefined) {
                         let current = document.createElement("p");
-                        current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(key.replaceAll("_", " ")) + " x " + value * parseInt(quantityInput.value);
+                        current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(key.replaceAll("_", " ")) + " x " + value * multiplier;
                         tree.appendChild(current);
+                        if (rawItemsDict[key] !== undefined && rawItemsDict[key] !== null) {
+                            rawItemsDict[key] += value * multiplier;
+                        } else {
+                            rawItemsDict[key] = value * multiplier;
+                        }
+                        console.log(rawItemsDict)
                         continue;
                     }
                     let current = document.createElement("p");
-                    current.innerText = "⠀".repeat(depth*2) + " - " + titleCase(i["name"].replaceAll("_", " ")) + " x " + value * parseInt(quantityInput.value);
+                    current.innerText = "⠀".repeat(depth*2) + " - " + get_title_name(i) + " x " + value * multiplier;
                     tree.appendChild(current);
                     if (i["category"] === "RNG Drop") {
-                        let b = document.createElement("b");
-                        b.innerText = "⠀".repeat(depth*4) + "This is an RNG Drop!";
-                        //tree.appendChild(b);
                         let sources = rng_drops.filter(drop => drop.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"))
                         sources.forEach(item => {
                             let source = document.createElement("p");
@@ -138,10 +159,8 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             tree.appendChild(source)
                         })
-                    } else if (i["category"] === "Mob Drop") {
-                        let b = document.createElement("b");
-                        b.innerText = "⠀".repeat(depth*4) + "This is a Mob Drop!";
-                        //tree.appendChild(b)
+                    }
+                    else if (i["category"] === "Mob Drop") {
                         let sources = mob_drops.filter(item => item.name.toLowerCase().replaceAll(" ", "_") === i["name"].toLowerCase().replaceAll(" ", "_"));
                         sources.forEach(item => {
                             let source = document.createElement("p");
@@ -151,13 +170,31 @@ function calculateCrafting() {
                                 source.innerText = "⠀".repeat((depth+1)*2) + " - " + item.source + " -> " + item["minimumDrop"] + "x - " + item["maximumDrop"] + "x (" + item["chance"] + ")";
                             tree.appendChild(source)
                         })
-                    } else if (Object.keys(i["components"]).length > 0) {
-                        create_tree(i["name"], depth + 1);
+                    }
+                    else if (Object.keys(i["components"]).length > 0) {
+                        console.log("Creating tree for " + i["name"] + " with a quantity of " + value + " and multiplier of " + value * multiplier)
+                        create_tree(i["name"], depth + 1, value * multiplier);
+                    }
+                    else {
+                        if (rawItemsDict[get_title_name(i["name"])] !== undefined && rawItemsDict[get_title_name(i["name"])] !== null) {
+                            rawItemsDict[get_title_name(i["name"])] += value * multiplier;
+                        } else {
+                            rawItemsDict[get_title_name(i["name"])] = value * multiplier;
+                        }
+                        console.log(rawItemsDict)
                     }
                 }
             }
 
-            create_tree(actual_item.name, 0);
+            create_tree(actual_item.name, 0, parseInt(quantityInput.value));
+
+            console.log(rawItemsDict);
+            for (const [iKey, iValue] of Object.entries(rawItemsDict)) {
+                console.log(iKey, iValue);
+                let r = document.createElement("li")
+                r.innerHTML = titleCase(iKey.replaceAll("_", " ")) + " x " + iValue;
+                rawItems.appendChild(r);
+            }
 
             break;
         }

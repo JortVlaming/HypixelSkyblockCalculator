@@ -30,10 +30,6 @@ main {
 h1, h2 {
     color: #333;
 }
-ul {
-    list-style-type: none;
-    padding: 0;
-}
 li {
     padding: 5px 0;
 }
@@ -50,17 +46,6 @@ button {
 button:hover {
     background-color: #218838;
 }
-footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: #fff;
-    background-color: #888;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 120px;
-}
 
 #itemInput, #itemQuantityInput {
     padding: 10px;
@@ -76,7 +61,7 @@ footer {
 }
 
 #copyrightNotice {
-    font-size: 12px;
+    font-size: 8px;
 }
 
 .autocomplete {
